@@ -6,6 +6,8 @@ function TimerTick()
     if System.IsDebugging then
         print("Fader value = ", faderValue)
     end
+
+    SubmitEncodeSettings()
 end
 
 function SubmitEncodeSettings()
