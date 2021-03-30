@@ -2,7 +2,7 @@
 JSON = require('json')
 
 function TimerTick()
-    local faderValue = NamedControl.GetValue("bitrateValue")
+    local faderValue = NamedControl.GetValue("bitrateFader")
     if System.IsDebugging then
         print("Fader value = ", faderValue)
     end
@@ -64,27 +64,31 @@ function SubmitEncodeSettings()
         data['nditaly'] = "tallyoff"
     end
 
-    data['ndivideoq'] = math.floor(NamedControl.GetValue('bitrateValue') + 0.5)
+    --print(math.floor(NamedControl.GetValue('bitrateValue') + 0.5))
+    --print(string.format("%.0f", NamedControl.GetValue('bitrateValue')))
+    data['ndivideoq'] = math.floor(NamedControl.GetValue('bitrateFader') + 0.5)
+    --print(string.format("Video bitrate = ", data['ndivideoq']))
     if System.IsDebugging then
         print("NDI Audio = ", ndiaudio)
         print("NDI Tally = ", nditally)
         print("NDI Video quality = ", ndivideoq)
     end
 
-    SendPostRequest(data)
+    SendPostRequest()
 end
 
 if System.IsDebugging then
     NamedControl.SetValue("tallyButton", 1)
     NamedControl.SetValue("bitrateFader", Defaultq)
---    print("Fader = ", NamedControl.GetValue("bitrateValue"))
+    NamedControl.SetValue("bitrateValue", Defaultq)
+    print("Fader = ", NamedControl.GetValue("bitrateFader"))
     print("Value = ", NamedControl.GetValue("bitrateValue"))
 end
 
 Maxq = 180
 Minq = 80
 Defaultq = 120
-NamedControl.SetValue("bitrateFader", math.floor(Defaultq + 0.5))
+NamedControl.SetValue("bitrateFader", Defaultq)
 
 SubmitEncodeSettings()
 
