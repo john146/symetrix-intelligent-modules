@@ -11,16 +11,16 @@ function TimerTick()
 end
 
 function SendGetRequest(ndiaudio, nditally, ndivideoq)
-    local url = "http://10.0.1.4:8080/enc-settings"
+    local url = NamedControl.GetText('birdDogAddr')
     HttpClient.Download({Url = url, EventHandler = GetResponse})
 end
 
-function SendPostRequest(data) 
-    local url = "http://10.0.1.4:8080/enc-settings"
+function SendPostRequest(data)
+    local url = NamedControl.GetText('birdDogAddr')
     HttpClient.Upload({Url = url, Data = data, EventHandler = GetResponse})
 end
 
-function GetResponse(Table, ReturnCode, Data, Error, Headers) 
+function GetResponse(Table, ReturnCode, Data, Error, Headers)
     if (200 == ReturnCode) then
         if System.IsDebugging then
             print(string.format("URL requested = %s", Table.Url))
